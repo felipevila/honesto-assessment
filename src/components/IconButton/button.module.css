@@ -1,0 +1,26 @@
+.button {
+  display: flex;
+  background-color: transparent;
+  color: var(--darkGray);
+  border: none;
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.button svg {
+  fill: var(--darkGray);
+}
+
+.text {
+  padding-left: 10px;
+}
+
+.button:hover {
+  color: var(--primaryColor);
+}
+
+.button:hover svg {
+  fill: var(--primaryColor);
+}

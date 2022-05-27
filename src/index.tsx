@@ -1,4 +1,5 @@
 import './index.module.css'
+import '@fontsource/open-sans'
 import { worker } from './mocks/browser'
 import App from './App'
 import React from 'react'

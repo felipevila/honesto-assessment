@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Route, Redirect, RouteProps } from 'react-router-dom'
 
+const RouteTyped = Route as any
+const RedirectTyped = Redirect as any
 interface PrivateRouteProps extends RouteProps {
   // tslint:disable-next-line:no-any
   component?: any
@@ -13,9 +15,9 @@ const PrivateRoute = (props: PrivateRouteProps) => {
   const { component: Component, children, ...rest } = props
 
   return (
-    <Route
+    <RouteTyped
       {...rest}
-      render={(routeProps) =>
+      render={(routeProps: any) =>
         props.isLoggedIn ? (
           Component ? (
             <Component {...routeProps} />
@@ -23,7 +25,7 @@ const PrivateRoute = (props: PrivateRouteProps) => {
             children
           )
         ) : (
-          <Redirect
+          <RedirectTyped
             to={{
               pathname: '/',
               state: { from: routeProps.location },

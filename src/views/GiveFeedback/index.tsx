@@ -1,12 +1,15 @@
 import * as React from 'react'
 import { UserContext } from '../../context/UserProvider'
+import { useHistory } from 'react-router-dom'
 import MainLayout from '../../layouts/MainLayout'
 import User from '../../components/User'
 import Button from '../../components/Button'
 import styles from './giveFeedback.module.css'
+import { slugify } from '../../utils/helpers'
 
 const GiveFeedback = () => {
   const users = React.useContext(UserContext)
+  const history = useHistory()
 
   return (
     <MainLayout loggedIn>
@@ -20,7 +23,7 @@ const GiveFeedback = () => {
                 <span style={{ flex: 1 }} />
                 <Button
                   onClick={() => {
-                    console.log('Fill out', user)
+                    history.push(`share-feedback/${slugify(user.name)}/q1`)
                   }}
                 >
                   Fill out

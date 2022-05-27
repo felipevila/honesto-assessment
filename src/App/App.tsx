@@ -9,8 +9,14 @@ import Home from '../views/Home'
 import http from '../common/http'
 import NotFound from '../views/NotFound'
 import ReviewFeedback from '../views/ReviewFeedback'
+import Feedback from '../views/Feedback'
 import { AccountContext } from '../context/AccountProvider'
 import PrivateRoute from '../components/Routing/PrivateRoute'
+
+const Router = BrowserRouter as any
+const Error = ErrorHandler as any
+const SwitchTyped = Switch as any
+const RouteTyped = Route as any
 
 const App = () => {
   const currentUser = React.useContext(AccountContext)
@@ -36,27 +42,34 @@ const App = () => {
   }, [])
 
   return (
-    <BrowserRouter>
-      <ErrorHandler>
-        <Switch>
-          <Route exact path="/">
+    <Router>
+      <Error>
+        <SwitchTyped>
+          <RouteTyped exact path="/">
             <Home />
-          </Route>
+          </RouteTyped>
           <PrivateRoute isLoggedIn={isLoggedIn} exact path="/my-feedback">
             <ReviewFeedback />
           </PrivateRoute>
           <PrivateRoute isLoggedIn={isLoggedIn} exact path="/share-feedback">
             <GiveFeedback />
           </PrivateRoute>
+          <PrivateRoute
+            isLoggedIn={isLoggedIn}
+            exact
+            path="/share-feedback/:user/:question"
+          >
+            <Feedback />
+          </PrivateRoute>
           <PrivateRoute isLoggedIn={isLoggedIn} exact path="/components">
             <Components />
           </PrivateRoute>
-          <Route>
+          <RouteTyped>
             <NotFound />
-          </Route>
-        </Switch>
-      </ErrorHandler>
-    </BrowserRouter>
+          </RouteTyped>
+        </SwitchTyped>
+      </Error>
+    </Router>
   )
 }
 
