@@ -6,6 +6,7 @@ import MainLayout from '../../layouts/MainLayout'
 import IconButton from '../../components/IconButton'
 import Button from '../../components/Button'
 import Avatar from '../../components/Avatar'
+import Question from '../../components/Question'
 import styles from './feedback.module.css'
 import { ReactComponent as Back } from '../../assets/back.svg'
 import { unslugify } from '../../utils/helpers'
@@ -49,7 +50,7 @@ const Feedback = () => {
             </section>
           )}
           <section className={styles.question}>
-            {/* <div>TODO: Add question component here with variations</div> */}
+            <Question {...currentQuestion} />
             <nav>
               <Button
                 onClick={() => navigate('previous')}

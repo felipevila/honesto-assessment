@@ -1,0 +1,35 @@
+.options {
+  list-style: none;
+}
+
+.option {
+  background-color: var(--lightGrey);
+  border-radius: 3px;
+  padding: 20px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: var(--animDuration) var(--animEase);
+}
+
+.option:first-child {
+  margin-top: 0;
+}
+
+.option:hover,
+.option:focus,
+.option.active {
+  background-color: var(--darkGray);
+  color: var(--white);
+}
+
+.text {
+  width: 100%;
+  border: 1px solid #d9dcde;
+  border-radius: 3px;
+  padding: 20px;
+  min-height: 230px;
+}
+
+.text::placeholder {
+  color: var(--gray);
+}

@@ -5,6 +5,7 @@ import {
   AccountContext,
   DispatchAccountContext,
 } from '../../context/AccountProvider'
+import Avatar from '../../components/Avatar'
 
 const Header = () => {
   const currentUser = React.useContext(AccountContext)
@@ -26,9 +27,12 @@ const Header = () => {
         My Feedback
       </NavLink>
       <span className={styles.spacer} />
-      <NavLink exact to="/" onClick={handleLogout}>
-        Logout {currentUser && `${currentUser.name}`}
-      </NavLink>
+      {currentUser && (
+        <NavLink exact to="/" onClick={handleLogout} className={styles.logOut}>
+          <Avatar {...currentUser} />
+          Logout {currentUser && `${currentUser.name}`}
+        </NavLink>
+      )}
     </div>
   )
 }

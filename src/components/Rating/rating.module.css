@@ -1,0 +1,27 @@
+.rating {
+  display: flex;
+  justify-content: space-between;
+}
+.rating button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.full {
+  width: 70px;
+  height: 70px;
+  background-color: var(--primaryColor);
+}
+
+.empty {
+  width: 70px;
+  height: 70px;
+  background-color: var(--lightGrey);
+}
+
+.counter {
+  padding-top: 7px;
+  display: flex;
+  justify-content: flex-end;
+}
