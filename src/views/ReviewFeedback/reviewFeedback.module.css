@@ -1,0 +1,36 @@
+.feedbackContainer {
+  border: var(--baseBorder);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.users,
+.feedback {
+  list-style-type: none;
+}
+
+.users {
+  border-right: var(--baseBorder);
+}
+
+.users li {
+  padding: 1rem;
+}
+
+.users h3,
+.feedback h2 {
+  margin: 0;
+}
+
+.feedback li {
+  padding: 1.5rem;
+}
+
+.users li,
+.feedback li {
+  border-bottom: var(--baseBorder);
+}
+
+.feedback li:last-child {
+  border-bottom: none;
+}

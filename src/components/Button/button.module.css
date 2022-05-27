@@ -1,0 +1,28 @@
+.button {
+  background-color: var(--primaryColor);
+  border-radius: var(--borderRadius);
+  border: 1px solid var(--primaryColor);
+  color: var(--copyLightColor);
+  cursor: pointer;
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  padding: 12px 50px;
+  text-decoration: none;
+  transition: var(--animDuration) var(--animEase);
+}
+
+.button:hover {
+  background-color: var(--copyLightColor);
+  border-color: var(--primaryColor);
+  color: var(--primaryColor);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  border-color: var(--borderColor);
+  color: var(--copyDarkColor);
+}
+
+.secondaryButton:hover {
+  background-color: var(--primaryLightColor);
+}

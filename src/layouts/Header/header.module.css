@@ -1,0 +1,36 @@
+.header {
+  align-items: stretch;
+  background-color: var(--lightGrey);
+  border-bottom: var(--baseBorder);
+  display: flex;
+  gap: 2rem;
+  padding: 0 var(--baseHorzSpacing);
+}
+
+.header h1 {
+  font-weight: var(--fw-bold);
+}
+
+.header h1,
+.header a {
+  align-items: center;
+  color: var(--copyColor);
+  display: flex;
+  margin: 0;
+}
+
+.header a {
+  border-bottom: 3px solid var(--lightGrey);
+  margin-bottom: 1px;
+  padding-top: 10px;
+  text-decoration: none;
+}
+
+.active {
+  border-bottom: 3px solid var(--primaryColor) !important;
+}
+
+.spacer {
+  border-right: var(--baseBorder);
+  flex: 1;
+}
