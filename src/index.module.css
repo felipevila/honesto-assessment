@@ -37,6 +37,7 @@
   --baseVertSpacing: 3rem;
 
   --baseBorder: 1px solid var(--borderColor);
+  --boxShadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 }
 
 * {
@@ -76,12 +77,12 @@ h5 {
 
 h1 {
   font-size: var(--fs-xxl);
-  font-weight: var(--fw-regeular);
+  font-weight: var(--fw-semibold);
 }
 
 h2 {
   font-size: var(--fs-xl);
-  font-weight: var(--fw-semiBold);
+  font-weight: var(--fw-semibold);
 }
 
 h3 {

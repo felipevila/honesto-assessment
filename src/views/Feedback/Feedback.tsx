@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { QuestionContext } from '../../context/QuestionProvider'
-import { UserContext } from '../../context/UserProvider'
-import { FeedbackContext, FeedbackTypeT } from '../../context/FeedbackProvider'
+import { UserContext, DispatchUserContext } from '../../context/UserProvider'
+import { FeedbackContext } from '../../context/FeedbackProvider'
 import { AccountContext } from '../../context/AccountProvider'
+import { IAnswer, IOption, FeedbackTypeT } from '../../context/types'
 import { useHistory, useParams } from 'react-router-dom'
 import MainLayout from '../../layouts/MainLayout'
 import IconButton from '../../components/IconButton'
@@ -13,15 +14,6 @@ import styles from './feedback.module.css'
 import { ReactComponent as Back } from '../../assets/back.svg'
 import { unslugify } from '../../common/helpers'
 
-export interface IOption {
-  label: string
-  value: number
-}
-export interface IAnswer {
-  type: FeedbackTypeT | ''
-  value: number | string
-}
-
 const Feedback = () => {
   const history = useHistory()
   const { user, question } = useParams<{ user: string; question: string }>()
@@ -29,12 +21,11 @@ const Feedback = () => {
   const questions = React.useContext(QuestionContext) || []
   const users = React.useContext(UserContext)
   const currentUser = React.useContext(AccountContext)
-  const { setInitialFeedback, setFeedback } = React.useContext(FeedbackContext)
+  const { setFeedback } = React.useContext(FeedbackContext)
+  const userDispatch = React.useContext(DispatchUserContext)
 
-  const [answer, setAnswer] = React.useState<IAnswer>({
-    type: '',
-    value: '',
-  })
+  const answerInitial: IAnswer = { type: '', value: '' }
+  const [answer, setAnswer] = React.useState<IAnswer>(answerInitial)
   const [selected, setSelected] = React.useState<number>(0)
   const page = parseInt(question.replace(/^\D+/g, ''))
 
@@ -46,7 +37,12 @@ const Feedback = () => {
 
   const navigate = (direction: string) => {
     setSelected(0)
+    setAnswer(answerInitial)
     if (isLastQuestion && direction === 'next') {
+      userDispatch({
+        action: 'finish',
+        payload: person?.id,
+      })
       history.push(`/`)
     } else {
       history.push(
@@ -83,21 +79,6 @@ const Feedback = () => {
       evaluated: person?.id,
     })
   }
-
-  React.useEffect(() => {
-    if (users && questions) {
-      let obj = {}
-      users.forEach((user) => {
-        obj = {
-          ...obj,
-          [user.id]: questions.map(({ id }) => {
-            return { id, answer: '', evaluator: '', evaluated: '' }
-          }),
-        }
-      })
-      setInitialFeedback(obj)
-    }
-  }, [])
 
   return (
     <MainLayout loggedIn>
@@ -138,7 +119,7 @@ const Feedback = () => {
                 <Button
                   disabled={required || isLastQuestion}
                   secondary
-                  onClick={() => navigate('next')}
+                  onClick={handleSubmitQuestion}
                 >
                   Skip
                 </Button>

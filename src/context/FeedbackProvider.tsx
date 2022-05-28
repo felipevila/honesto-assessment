@@ -1,32 +1,18 @@
 import React, { createContext, useReducer } from 'react'
+import { SetFeedbackT, DispatchFeedbackContextT } from './types'
 
 const initialState: any = {
   feedback: {},
 }
 
-export type FeedbackTypeT = 'text' | 'multipleChoice' | 'scale'
-
-export type FeedbackT = {
-  id: string
-  type: FeedbackTypeT
-  answer: string | number
-  evaluator: string
-  evaluated: string
-}
-
-type SetFeedbackT = {
-  type: string
-  payload: any
-}
-
 const reducer = (state: any, action: SetFeedbackT) => {
   switch (action.type) {
-    case 'SET_INITIAL_FEEDBACK':
+    case 'set_initial':
       return {
         feedback: action.payload,
       }
 
-    case 'SET_FEEDBACK':
+    case 'set':
       const { id, evaluated } = action.payload
       const questionIdx = state.feedback[evaluated].findIndex(
         (q: any) => q.id === id,
@@ -40,19 +26,13 @@ const reducer = (state: any, action: SetFeedbackT) => {
           ],
         },
       }
-    case 'ADD_ITEM':
-      return {
-        feedback: [action.payload, ...state.feedback],
-      }
-    case 'REMOVE_ITEM':
-      return {
-        feedback: state.feedback.filter((item: any) => item !== action.payload),
-      }
     default:
       return state
   }
 }
 
+export const DispatchFeedbackContext =
+  React.createContext<DispatchFeedbackContextT | null>(null)
 export const FeedbackContext = createContext(initialState)
 
 const UIProvider = ({ children }: { children: React.ReactNode }): any => {
@@ -60,25 +40,13 @@ const UIProvider = ({ children }: { children: React.ReactNode }): any => {
 
   function setInitialFeedback(item: any) {
     dispatch({
-      type: 'SET_INITIAL_FEEDBACK',
+      type: 'set_initial',
       payload: item,
     })
   }
   function setFeedback(item: any) {
     dispatch({
-      type: 'SET_FEEDBACK',
-      payload: item,
-    })
-  }
-  function addItemToList(item: any) {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: item,
-    })
-  }
-  function removeItemFromList(item: any) {
-    dispatch({
-      type: 'REMOVE_ITEM',
+      type: 'set',
       payload: item,
     })
   }
@@ -86,17 +54,17 @@ const UIProvider = ({ children }: { children: React.ReactNode }): any => {
   console.log('feedback', state)
 
   return (
-    <FeedbackContext.Provider
-      value={{
-        feedback: state.feedback,
-        addItemToList,
-        removeItemFromList,
-        setInitialFeedback,
-        setFeedback,
-      }}
-    >
-      {children}
-    </FeedbackContext.Provider>
+    <DispatchFeedbackContext.Provider value={dispatch}>
+      <FeedbackContext.Provider
+        value={{
+          feedback: state.feedback,
+          setInitialFeedback,
+          setFeedback,
+        }}
+      >
+        {children}
+      </FeedbackContext.Provider>
+    </DispatchFeedbackContext.Provider>
   )
 }
 

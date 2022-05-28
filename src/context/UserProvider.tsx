@@ -12,9 +12,14 @@ type SetUsersT = {
   payload: UserT[]
 }
 
-const reducer = (state: UserT[] | null, update: SetUsersT): UserT[] | null => {
+const reducer = (state: any, update: SetUsersT): UserT[] | null => {
   if (update.action === 'set') {
     return update.payload
+  }
+  if (update.action === 'finish') {
+    let newState = state?.filter((u: any) => u.id === update.payload)[0]
+    if (newState) newState.finished = true
+    return [...state]
   }
 
   return state
