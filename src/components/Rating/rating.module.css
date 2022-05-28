@@ -12,12 +12,14 @@
   width: 70px;
   height: 70px;
   background-color: var(--primaryColor);
+  transition: var(--animDuration) var(--animEase);
 }
 
 .empty {
   width: 70px;
   height: 70px;
   background-color: var(--lightGrey);
+  transition: var(--animDuration) var(--animEase);
 }
 
 .counter {

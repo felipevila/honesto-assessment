@@ -1,42 +1,39 @@
 import React from 'react'
 import styles from './rating.module.css'
+import { FeedbackTypeT } from '../../context/FeedbackProvider'
 
 type Props = {
   hover: number
   setHover: (num: number) => void
-  feedback: number
-  setFeedback: (num: number) => void
+  selected: number
+  handleScale: (type: FeedbackTypeT, num: number) => void
 }
 
 const Rating = (props: Props) => {
+  const { hover, setHover, selected, handleScale } = props
   return (
     <>
       <div className={styles.rating}>
-        {[...Array(10)].map((star, index) => {
+        {[...Array(10)].map((item, index) => {
           index += 1
           return (
             <button
               type="button"
               key={index}
-              className={
-                index <= (props.hover || props.feedback) ? 'on' : 'off'
-              }
-              onClick={() => props.setFeedback(index)}
-              onMouseEnter={() => props.setHover(index)}
-              onMouseLeave={() => props.setHover(props.feedback)}
+              onClick={() => handleScale('scale', index)}
+              onMouseEnter={() => setHover(index)}
+              onMouseLeave={() => setHover(selected)}
             >
               <div
                 className={
-                  index <= (props.hover || props.feedback)
-                    ? styles.full
-                    : styles.empty
+                  index <= (hover || selected) ? styles.full : styles.empty
                 }
               />
             </button>
           )
         })}
       </div>
-      <div className={styles.counter}>{props.hover}/10</div>
+      <div className={styles.counter}>{hover}/10</div>
     </>
   )
 }

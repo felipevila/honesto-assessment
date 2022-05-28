@@ -24,3 +24,11 @@
 .wrapper nav button {
   width: 180px;
 }
+
+.progressBar {
+  background: linear-gradient(to right, #1ddebb, #98fffb);
+  transition: var(--animDuration) var(--animEase);
+  margin-bottom: 16px;
+  height: 8px;
+  border-radius: 6px;
+}

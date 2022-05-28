@@ -11,8 +11,6 @@ const Header = () => {
   const currentUser = React.useContext(AccountContext)
   const logoutUser = React.useContext(DispatchAccountContext)
 
-  console.log('current user', currentUser)
-
   const handleLogout = () => {
     logoutUser({ action: 'logout' })
   }
@@ -25,6 +23,9 @@ const Header = () => {
       </NavLink>
       <NavLink exact to="/my-feedback" activeClassName={styles.active}>
         My Feedback
+      </NavLink>
+      <NavLink exact to="/components" activeClassName={styles.active}>
+        Components
       </NavLink>
       <span className={styles.spacer} />
       {currentUser && (

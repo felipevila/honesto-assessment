@@ -8,15 +8,18 @@ import reportWebVitals from './reportWebVitals'
 import UserProvider from './context/UserProvider'
 import QuestionProvider from './context/QuestionProvider'
 import AccountProvider from './context/AccountProvider'
+import FeedbackProvider from './context/FeedbackProvider'
 
 worker.start().then(() => {
   ReactDOM.render(
     <React.StrictMode>
       <AccountProvider>
         <UserProvider>
-          <QuestionProvider>
-            <App />
-          </QuestionProvider>
+          <FeedbackProvider>
+            <QuestionProvider>
+              <App />
+            </QuestionProvider>
+          </FeedbackProvider>
         </UserProvider>
       </AccountProvider>
     </React.StrictMode>,

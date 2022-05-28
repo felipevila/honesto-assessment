@@ -1,50 +1,40 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './question.module.css'
 import classnames from 'classnames'
 import Rating from '../Rating'
-
-interface IOption {
-  label: string
-  value: number
-}
+import { FeedbackTypeT } from '../../context/FeedbackProvider'
+import { IOption } from '../../views/Feedback/Feedback'
 
 type Props = {
   id: string
   label: string
   required: boolean
-  type: 'text' | 'multipleChoice' | 'scale'
+  type: FeedbackTypeT
   options?: IOption[]
+  handleText: (e: any, type: FeedbackTypeT) => void
+  handleMultiple: (type: FeedbackTypeT, value: IOption) => void
+  handleScale: (type: FeedbackTypeT, value: number) => void
+  optionSelected: number
 }
 
 const Question = (props: Props) => {
-  const { type, options } = props
-  const [feedback, setFeedback] = useState<number>(0)
-  const [hover, setHover] = useState(0)
-
-  const selectOption = (option: IOption) => {
-    setFeedback(option.value)
-  }
-
-  const handleTextFeedback = (e: any) => {
-    setFeedback(e.target.value)
-  }
+  const { type, options, optionSelected, handleScale } = props
+  const [hover, setHover] = React.useState(0)
 
   if (type === 'multipleChoice') {
     return (
       <ul className={styles.options}>
-        {options?.map((option) => {
-          return (
-            <li
-              key={option.value}
-              className={classnames(styles.option, {
-                [styles.active]: feedback === option.value,
-              })}
-              onClick={() => selectOption(option)}
-            >
-              {option.label}
-            </li>
-          )
-        })}
+        {options?.map((option) => (
+          <li
+            key={option.value}
+            className={classnames(styles.option, {
+              [styles.active]: optionSelected === option.value,
+            })}
+            onClick={() => props.handleMultiple(type, option)}
+          >
+            {option.label}
+          </li>
+        ))}
       </ul>
     )
   }
@@ -53,7 +43,7 @@ const Question = (props: Props) => {
       <textarea
         className={styles.text}
         placeholder="Put something here"
-        onChange={handleTextFeedback}
+        onChange={(e) => props.handleText(e, type)}
       />
     )
   }
@@ -61,8 +51,8 @@ const Question = (props: Props) => {
     <Rating
       hover={hover}
       setHover={setHover}
-      feedback={feedback}
-      setFeedback={setFeedback}
+      selected={optionSelected}
+      handleScale={handleScale}
     />
   )
 }

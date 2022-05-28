@@ -5,7 +5,7 @@ import MainLayout from '../../layouts/MainLayout'
 import User from '../../components/User'
 import Button from '../../components/Button'
 import styles from './giveFeedback.module.css'
-import { slugify } from '../../utils/helpers'
+import { slugify } from '../../common/helpers'
 
 const GiveFeedback = () => {
   const users = React.useContext(UserContext)
