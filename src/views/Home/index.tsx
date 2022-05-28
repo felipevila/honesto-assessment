@@ -11,6 +11,8 @@ import {
 import { UserContext } from '../../context/UserProvider'
 import { UserT } from '../../context/types'
 
+const RedirectTyped = Redirect as any
+
 const Home = () => {
   const currentUser = React.useContext(AccountContext)
   const accountDispatch = React.useContext(DispatchAccountContext)
@@ -18,7 +20,7 @@ const Home = () => {
   const [selectedUser, setUserForLogin] = React.useState<UserT | null>()
 
   if (currentUser != null) {
-    return <Redirect to="/share-feedback" />
+    return <RedirectTyped to="/share-feedback" />
   }
 
   return (

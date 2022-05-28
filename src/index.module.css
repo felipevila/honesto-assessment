@@ -1,19 +1,21 @@
 :root {
-  --lightGrey: #F2F3F4;
+  --lightGrey: #f2f3f4;
   /* COLORS */
-  --white: #FFFFFF;
+  --white: #ffffff;
   --black: #000000;
   --accentColor: #201d29;
-  --borderColor: #D6D6D6;
+  --borderColor: #d6d6d6;
   --copyColor: #333333;
   --copyDarkColor: var(--black);
   --copyLightColor: var(--white);
-  --primaryColor: #AB61E5;
+  --primaryColor: #ab61e5;
   --primaryLightColor: #faf5ff;
   --primaryMediumColor: #e7e2f8;
+  --darkGray: #59636e;
+  --gray: #acb1b6;
 
   /* TYPOGRAPHY */
-  --font-family: sans-serif;
+  --font-family: 'Open Sans', sans-serif;
   --fs-base: 1rem;
   --fs-l: 1.25rem;
   --fs-sm: 0.75rem;
@@ -55,11 +57,20 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3, h4, h5, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
   margin: 0 0 0.45em;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   color: var(--copyDarkColor);
 }
 
@@ -81,6 +92,14 @@ h3 {
   color: var(--copyColor);
 }
 
+h4 {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-extrabold);
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  color: var(--gray);
+}
+
 p {
   font-weight: var(--fw-regular);
 }
@@ -89,4 +108,11 @@ a {
   color: var(--primaryColor);
   cursor: pointer;
   font-weight: var(--fw-semibold);
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
 }

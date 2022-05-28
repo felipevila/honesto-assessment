@@ -34,3 +34,12 @@
   border-right: var(--baseBorder);
   flex: 1;
 }
+
+.logOut {
+  display: flex;
+  align-items: center;
+}
+
+.logOut img {
+  margin-right: 17px;
+}

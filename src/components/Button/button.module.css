@@ -11,7 +11,7 @@
   transition: var(--animDuration) var(--animEase);
 }
 
-.button:hover {
+.button:not(.disabled):hover {
   background-color: var(--copyLightColor);
   border-color: var(--primaryColor);
   color: var(--primaryColor);
@@ -23,6 +23,13 @@
   color: var(--copyDarkColor);
 }
 
-.secondaryButton:hover {
+.secondaryButton:not(.disabled):hover {
   background-color: var(--primaryLightColor);
+}
+
+.disabled {
+  background-color: var(--gray);
+  border-color: var(--gray);
+  color: var(--copyLightColor);
+  cursor: default;
 }
