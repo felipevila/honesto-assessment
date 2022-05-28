@@ -1,5 +1,7 @@
 import './index.module.css'
 import '@fontsource/open-sans'
+import '@fontsource/open-sans/600.css'
+import '@fontsource/open-sans/700.css'
 import { worker } from './mocks/browser'
 import App from './App'
 import React from 'react'

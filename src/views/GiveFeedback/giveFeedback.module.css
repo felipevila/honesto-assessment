@@ -16,6 +16,10 @@
   padding: 1rem;
 }
 
+.user button {
+  width: 240px;
+}
+
 .user:hover {
   background-color: var(--primaryLightColor);
 }

@@ -1,0 +1,35 @@
+.users {
+  list-style-type: none;
+}
+
+.users {
+  border-right: var(--baseBorder);
+}
+
+.users li {
+  padding: 1rem;
+}
+
+.users h3 {
+  margin: 0;
+}
+
+.feedback li {
+  padding: 1.5rem;
+}
+
+.users li {
+  border-bottom: var(--baseBorder);
+}
+
+.user {
+  cursor: pointer;
+}
+
+.user:hover {
+  background: var(--primaryLightColor);
+}
+
+.user.active {
+  background: var(--lightGrey);
+}

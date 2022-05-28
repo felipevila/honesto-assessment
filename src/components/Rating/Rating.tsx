@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './rating.module.css'
-import { FeedbackTypeT } from '../../context/FeedbackProvider'
+import { FeedbackTypeT } from '../../context/types'
 
 type Props = {
   hover: number

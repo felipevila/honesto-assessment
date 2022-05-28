@@ -2,8 +2,7 @@ import React from 'react'
 import styles from './question.module.css'
 import classnames from 'classnames'
 import Rating from '../Rating'
-import { FeedbackTypeT } from '../../context/FeedbackProvider'
-import { IOption } from '../../views/Feedback/Feedback'
+import { FeedbackTypeT, IOption } from '../../context/types'
 
 type Props = {
   id: string
