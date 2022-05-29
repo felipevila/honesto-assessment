@@ -14,7 +14,8 @@
   border-bottom: var(--baseBorder);
 }
 
-.feedback li:last-child {
+.feedback li:last-child,
+.feedback li:first-child {
   border-bottom: none;
 }
 

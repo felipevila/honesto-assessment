@@ -21,11 +21,15 @@ const Header = () => {
       <NavLink exact to="/share-feedback" activeClassName={styles.active}>
         Share Feedback
       </NavLink>
-      <NavLink exact to="/my-feedback" activeClassName={styles.active}>
+      <NavLink
+        exact
+        to="/my-feedback/noDefaultID"
+        activeClassName={styles.active}
+      >
         My Feedback
       </NavLink>
-      <NavLink exact to="/components" activeClassName={styles.active}>
-        Components
+      <NavLink exact to="/team-feedback" activeClassName={styles.active}>
+        Team Feedback
       </NavLink>
       <span className={styles.spacer} />
       {currentUser && (

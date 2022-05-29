@@ -4,30 +4,32 @@ import { UserContext } from '../../context/UserProvider'
 import { FeedbackContext } from '../../context/FeedbackProvider'
 import { AccountContext } from '../../context/AccountProvider'
 import { QuestionContext } from '../../context/QuestionProvider'
+import { UserT } from '../../context/types'
 import MainLayout from '../../layouts/MainLayout'
-import styles from './reviewFeedback.module.css'
+import styles from './myFeedback.module.css'
 import NoContent from '../../components/NoContent'
 import FeedbackResults from '../../components/FeedbackResults'
 import People from '../../components/People'
 
-const ReviewFeedback = () => {
-  const { defaultId } = useParams<{ defaultId: string | undefined }>()
+const MyFeedback = () => {
+  const { defaultId } = useParams<{ defaultId: string }>()
 
   const users = React.useContext(UserContext)
   const { feedback } = React.useContext(FeedbackContext)
   const questions = React.useContext(QuestionContext) || []
   const currentUser = React.useContext(AccountContext)
 
-  const [person, setPerson] = React.useState<any>({
+  const [person, setPerson] = React.useState<UserT>({
     avatarUrl: '',
     id: defaultId,
     name:
-      users && defaultId
+      users && defaultId !== 'noDefaultID'
         ? users.filter((user) => user.id === defaultId)[0].name
         : '',
+    finished: false,
   })
 
-  const selectPerson = (person: any) => {
+  const selectPerson = (person: UserT) => {
     setPerson(person)
   }
 
@@ -35,22 +37,15 @@ const ReviewFeedback = () => {
     return questions.filter((q) => q.id === feedbackId)[0].label
   }
 
-  const feedbackUsers: any =
+  const feedbackUsers: UserT[] | null =
     users &&
     users
       .filter((user) => user.id !== currentUser?.id)
       .filter((user) => user.finished)
 
-  React.useEffect(() => {
-    if (users && feedback) {
-      if (!person) setPerson(feedbackUsers[0])
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [users, feedback, person])
-
   return (
     <MainLayout loggedIn>
-      {feedbackUsers?.length > 0 ? (
+      {feedbackUsers && feedbackUsers.length > 0 ? (
         <>
           <h1>My Feedback</h1>
           <div className={styles.wrapper}>
@@ -80,4 +75,4 @@ const ReviewFeedback = () => {
   )
 }
 
-export default ReviewFeedback
+export default MyFeedback

@@ -10,7 +10,7 @@ import IconButton from '../../components/IconButton'
 import Button from '../../components/Button'
 import Avatar from '../../components/Avatar'
 import Question from '../../components/Question'
-import styles from './feedback.module.css'
+import styles from './enterFeedback.module.css'
 import { ReactComponent as Back } from '../../assets/back.svg'
 import { unslugify } from '../../common/helpers'
 
@@ -55,8 +55,8 @@ const Feedback = () => {
 
   const progressBarWidth = ((page - 1) / questions.length) * 100
 
-  const handleChangeText = (e: any) => {
-    setAnswer({ type: 'text', value: e.target.value })
+  const handleChangeText = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    setAnswer({ type: 'text', value: (e.target as HTMLTextAreaElement).value })
   }
 
   const handleClickOption = (type: FeedbackTypeT, option: IOption) => {

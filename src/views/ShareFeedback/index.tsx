@@ -5,10 +5,10 @@ import { useHistory } from 'react-router-dom'
 import MainLayout from '../../layouts/MainLayout'
 import User from '../../components/User'
 import Button from '../../components/Button'
-import styles from './giveFeedback.module.css'
+import styles from './shareFeedback.module.css'
 import { slugify } from '../../common/helpers'
 
-const GiveFeedback = () => {
+const ShareFeedback = () => {
   const users = React.useContext(UserContext)
   const currentUser = React.useContext(AccountContext)
   const history = useHistory()
@@ -52,4 +52,4 @@ const GiveFeedback = () => {
   )
 }
 
-export default GiveFeedback
+export default ShareFeedback
