@@ -9,7 +9,7 @@ export const UserContext = React.createContext<UserT[] | null>(null)
 
 type SetUsersT = {
   action: 'set'
-  payload: UserT[]
+  payload: UserT[] | any
 }
 
 const reducer = (state: any, update: SetUsersT): UserT[] | null => {
@@ -17,9 +17,20 @@ const reducer = (state: any, update: SetUsersT): UserT[] | null => {
     return update.payload
   }
   if (update.action === 'finish') {
-    let newState = state?.filter((u: any) => u.id === update.payload)[0]
-    if (newState) newState.finished = true
-    return [...state]
+    const stateWithEvaluators = [
+      ...state,
+      state.forEach((item: UserT) => {
+        item.evaluators = item.evaluators ? [...item.evaluators] : []
+      }),
+    ].filter((item) => item !== undefined)
+
+    const evaluatedIndex = parseInt(update.payload.person.replace(/\D/g, ''))
+    const evaluated = stateWithEvaluators[evaluatedIndex]
+
+    if (evaluated) {
+      evaluated.evaluators = [...evaluated.evaluators, update.payload.evaluator]
+    }
+    return stateWithEvaluators
   }
 
   return state

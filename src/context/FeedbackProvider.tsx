@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from 'react'
 import { SetFeedbackT, DispatchFeedbackContextT } from './types'
+import { QuestionT, Question2T } from './QuestionProvider'
 
 const initialState: any = {
   feedback: {},
@@ -13,17 +14,24 @@ const reducer = (state: any, action: SetFeedbackT) => {
       }
 
     case 'set':
-      const { id, evaluated } = action.payload
-      const questionIdx = state.feedback[evaluated].findIndex(
-        (q: any) => q.id === id,
+      const { id, evaluated, evaluator } = action.payload
+      const evaluatedIndex: number = evaluated.replace(/\D/g, '')
+      const questionIdx = state.feedback[evaluator][evaluatedIndex]?.findIndex(
+        (q: QuestionT | Question2T) => q.id === id,
       )
       return {
         feedback: {
           ...state.feedback,
-          [evaluated]: [
-            ...state.feedback[evaluated].filter((p: any) => p.id !== id),
-            (state.feedback[evaluated][questionIdx] = action.payload),
-          ],
+          [evaluator]: {
+            ...state.feedback[evaluator],
+            [evaluatedIndex]: [
+              ...state.feedback[evaluator][evaluatedIndex]?.filter(
+                (p: any) => p.id !== id,
+              ),
+              (state.feedback[evaluator][evaluatedIndex][questionIdx] =
+                action.payload),
+            ],
+          },
         },
       }
     default:

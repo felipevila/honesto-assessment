@@ -8,11 +8,11 @@ import {
 } from '../context/QuestionProvider'
 import { DispatchFeedbackContext } from '../context/FeedbackProvider'
 import ErrorHandler from './ErrorHandler'
-import ShareFeedback from '../views/ShareFeedback'
 import Home from '../views/Home'
 import http from '../common/http'
 import NotFound from '../views/NotFound'
-import ReviewFeedback from '../views/MyFeedback'
+import ShareFeedback from '../views/ShareFeedback'
+import Feedback from '../views/Feedback'
 import EnterFeedback from '../views/EnterFeedback'
 import { AccountContext } from '../context/AccountProvider'
 import PrivateRoute from '../components/Routing/PrivateRoute'
@@ -39,9 +39,11 @@ const App = () => {
       people.forEach((user: UserT) => {
         feedback = {
           ...feedback,
-          [user.id]: questions.map(({ id }) => {
-            return { id, answer: '', evaluator: '', evaluated: '' }
-          }),
+          [user.id]: people.map(() =>
+            questions.map(({ id }) => {
+              return { id, answer: '', evaluator: '', evaluated: '' }
+            }),
+          ),
         }
       })
       return feedback
@@ -79,7 +81,7 @@ const App = () => {
             exact
             path="/my-feedback/:defaultId?"
           >
-            <ReviewFeedback />
+            <Feedback isMyFeedback />
           </PrivateRoute>
           <PrivateRoute isLoggedIn={isLoggedIn} exact path="/share-feedback">
             <ShareFeedback />
@@ -90,6 +92,13 @@ const App = () => {
             path="/share-feedback/:user/:question"
           >
             <EnterFeedback />
+          </PrivateRoute>
+          <PrivateRoute
+            isLoggedIn={isLoggedIn}
+            exact
+            path="/team-feedback/:defaultId?"
+          >
+            <Feedback isMyFeedback={false} />
           </PrivateRoute>
           <RouteTyped>
             <NotFound />

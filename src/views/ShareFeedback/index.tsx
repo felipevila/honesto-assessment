@@ -17,7 +17,7 @@ const ShareFeedback = () => {
     <MainLayout loggedIn>
       <div className={styles.wrapper}>
         <h1>Share Feedback</h1>
-        {users && users.length > 0 && (
+        {currentUser && users && users.length > 0 && (
           <ul className={styles.users}>
             {users
               .filter((user) => user.id !== currentUser?.id)
@@ -25,7 +25,7 @@ const ShareFeedback = () => {
                 <li key={user.id} className={styles.user}>
                   <User name={user.name} avatarUrl={user.avatarUrl} />
                   <span style={{ flex: 1 }} />
-                  {user.finished ? (
+                  {user.evaluators?.includes(currentUser.id) ? (
                     <Button
                       onClick={() => {
                         history.push(`my-feedback/${user.id}`)

@@ -6,18 +6,20 @@ import { AccountContext } from '../../context/AccountProvider'
 import { QuestionContext } from '../../context/QuestionProvider'
 import { UserT } from '../../context/types'
 import MainLayout from '../../layouts/MainLayout'
-import styles from './myFeedback.module.css'
+import styles from './feedback.module.css'
 import NoContent from '../../components/NoContent'
 import FeedbackResults from '../../components/FeedbackResults'
 import People from '../../components/People'
 
-const MyFeedback = () => {
+type Props = {
+  isMyFeedback: boolean
+}
+
+const Feedback = (props: Props) => {
+  const { isMyFeedback } = props
   const { defaultId } = useParams<{ defaultId: string }>()
 
-  const users = React.useContext(UserContext)
-  const { feedback } = React.useContext(FeedbackContext)
-  const questions = React.useContext(QuestionContext) || []
-  const currentUser = React.useContext(AccountContext)
+  const users = React.useContext(UserContext) || []
 
   const [person, setPerson] = React.useState<UserT>({
     avatarUrl: '',
@@ -26,39 +28,56 @@ const MyFeedback = () => {
       users && defaultId !== 'noDefaultID'
         ? users.filter((user) => user.id === defaultId)[0].name
         : '',
-    finished: false,
+    evaluators: [],
   })
+  const questions = React.useContext(QuestionContext) || []
+  const currentUser = React.useContext(AccountContext) || person
+  const { feedback } = React.useContext(FeedbackContext)
 
-  const selectPerson = (person: UserT) => {
-    setPerson(person)
-  }
+  const selectPerson = (person: UserT) => setPerson(person)
 
   const renderQuestionLabel = (feedbackId: string) => {
     return questions.filter((q) => q.id === feedbackId)[0].label
   }
 
-  const feedbackUsers: UserT[] | null =
-    users &&
-    users
-      .filter((user) => user.id !== currentUser?.id)
-      .filter((user) => user.finished)
+  let teamFeedbackIds: string[] = []
+  let processedFeedback = {}
+  let feedbackUsers: UserT[] | null = []
+
+  teamFeedbackIds = Object.keys(feedback).filter(
+    (item) => !Array.isArray(feedback[item]),
+  )
+  teamFeedbackIds.forEach((item) => {
+    processedFeedback = {
+      ...processedFeedback,
+      [item]: feedback[item],
+    }
+  })
+
+  feedbackUsers = isMyFeedback
+    ? users
+        .filter((user) => user.id !== currentUser?.id)
+        .filter((u) => u.evaluators?.includes(currentUser?.id))
+    : users
+        .filter((user) => user.id !== currentUser?.id)
+        .filter((u) => teamFeedbackIds.includes(u.id))
 
   return (
     <MainLayout loggedIn>
       {feedbackUsers && feedbackUsers.length > 0 ? (
         <>
-          <h1>My Feedback</h1>
+          <h1>{isMyFeedback ? 'My Feedback' : 'Feedback Received'}</h1>
           <div className={styles.wrapper}>
-            {feedbackUsers && feedbackUsers.length > 0 && (
-              <People
-                people={feedbackUsers}
-                handleSelectPerson={selectPerson}
-                person={person}
-              />
-            )}
-            {person && (
+            <People
+              title="Feedback given"
+              people={feedbackUsers}
+              handleSelectPerson={selectPerson}
+              person={person}
+            />
+            {person && currentUser && (
               <FeedbackResults
-                feedback={feedback}
+                evaluator={currentUser.id}
+                feedback={isMyFeedback ? feedback : processedFeedback}
                 person={person}
                 handleRenderQuestion={renderQuestionLabel}
               />
@@ -75,4 +94,4 @@ const MyFeedback = () => {
   )
 }
 
-export default MyFeedback
+export default Feedback

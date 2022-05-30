@@ -5,11 +5,36 @@ import * as React from 'react'
 type Props = {
   person: UserT
   feedback: any
+  evaluator: string
   handleRenderQuestion: (id: string) => React.ReactNode
 }
 
+let obj: any = {}
+
 const FeedbackResults = (props: Props) => {
-  const { feedback, person, handleRenderQuestion } = props
+  const { feedback, person, handleRenderQuestion, evaluator } = props
+  const evaluatedIndex: number = parseInt(person.id.replace(/\D/g, ''))
+
+  let evalIndex = ''
+  let filteredFeedback: any = []
+  evalIndex = evaluator.replace(/\D/g, '')
+
+  filteredFeedback = Object.keys(feedback).map(
+    (item: any) => feedback[item][evalIndex],
+  )
+
+  filteredFeedback.forEach((item: any) => {
+    obj = {
+      ...obj,
+      [item[0].evaluator]: item,
+    }
+  })
+
+  const realFeedback =
+    evaluatedIndex && isNaN(evaluatedIndex)
+      ? feedback[evaluator][evaluatedIndex]
+      : obj[person.id]
+
   return (
     <ul className={styles.feedback}>
       <li>
@@ -17,7 +42,7 @@ const FeedbackResults = (props: Props) => {
       </li>
       {person.id !== 'noDefaultID' ? (
         <>
-          {feedback[person.id]?.map((fb: any) => (
+          {realFeedback?.map((fb: any) => (
             <li className={styles.feedbackItem} key={fb.id}>
               <p>{handleRenderQuestion(fb.id)}</p>
               {fb.type === 'scale' ? (

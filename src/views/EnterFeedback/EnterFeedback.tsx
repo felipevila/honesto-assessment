@@ -39,10 +39,12 @@ const Feedback = () => {
     setSelected(0)
     setAnswer(answerInitial)
     if (isLastQuestion && direction === 'next') {
-      userDispatch({
-        action: 'finish',
-        payload: person?.id,
-      })
+      if (currentUser) {
+        userDispatch({
+          action: 'finish',
+          payload: { person: person?.id, evaluator: currentUser.id },
+        })
+      }
       history.push(`/`)
     } else {
       history.push(
