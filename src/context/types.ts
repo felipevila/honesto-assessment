@@ -2,7 +2,7 @@ export type UserT = {
   avatarUrl: string
   id: string
   name: string
-  finished: boolean
+  evaluators: any
 }
 
 export type FeedbackTypeT = 'text' | 'multipleChoice' | 'scale'

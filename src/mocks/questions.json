@@ -2,33 +2,7 @@
   {
     "id": "q1",
     "type": "scale",
-    "required": true,
+    "required": false,
     "label": "How much do you trust this person to deliver high quality work?"
-  },
-  {
-    "id": "q2",
-    "type": "multipleChoice",
-    "required": false,
-    "label": "Is this person up to date with the latest accounting regulations?",
-    "options": [
-      {
-        "value": 1,
-        "label": "Not fully. You should work on trying to stay more up to date with regulations"
-      },
-      {
-        "value": 2,
-        "label": "Yes, you are reasonably up to date with new regulations."
-      },
-      {
-        "value": 3,
-        "label": "Yes, you are the one I look up to when I need information about new regulations"
-      }
-    ]
-  },
-  {
-    "id": "q3",
-    "type": "text",
-    "required": false,
-    "label": "Have there been any situations where this person could have managed their emotions better? What happened?"
   }
 ]

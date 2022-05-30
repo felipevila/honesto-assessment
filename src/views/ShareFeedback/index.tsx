@@ -5,10 +5,10 @@ import { useHistory } from 'react-router-dom'
 import MainLayout from '../../layouts/MainLayout'
 import User from '../../components/User'
 import Button from '../../components/Button'
-import styles from './giveFeedback.module.css'
+import styles from './shareFeedback.module.css'
 import { slugify } from '../../common/helpers'
 
-const GiveFeedback = () => {
+const ShareFeedback = () => {
   const users = React.useContext(UserContext)
   const currentUser = React.useContext(AccountContext)
   const history = useHistory()
@@ -17,7 +17,7 @@ const GiveFeedback = () => {
     <MainLayout loggedIn>
       <div className={styles.wrapper}>
         <h1>Share Feedback</h1>
-        {users && users.length > 0 && (
+        {currentUser && users && users.length > 0 && (
           <ul className={styles.users}>
             {users
               .filter((user) => user.id !== currentUser?.id)
@@ -25,7 +25,7 @@ const GiveFeedback = () => {
                 <li key={user.id} className={styles.user}>
                   <User name={user.name} avatarUrl={user.avatarUrl} />
                   <span style={{ flex: 1 }} />
-                  {user.finished ? (
+                  {user.evaluators?.includes(currentUser.id) ? (
                     <Button
                       onClick={() => {
                         history.push(`my-feedback/${user.id}`)
@@ -52,4 +52,4 @@ const GiveFeedback = () => {
   )
 }
 
-export default GiveFeedback
+export default ShareFeedback

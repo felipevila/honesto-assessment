@@ -24,6 +24,22 @@
   margin-bottom: 1px;
   padding-top: 10px;
   text-decoration: none;
+  position: relative;
+}
+
+.header a span {
+  position: absolute;
+  right: -16px;
+  top: 20px;
+  display: inline-block;
+  background: var(--primaryColor);
+  border-radius: 100%;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  color: white;
+  font-size: 11px;
+  line-height: 1.35;
 }
 
 .active {

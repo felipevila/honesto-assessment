@@ -4,20 +4,19 @@ import classnames from 'classnames'
 import User from '../../components/User'
 
 type Props = {
+  title: string
   people: any
   handleSelectPerson: any
   person: any
 }
 
 const People = (props: Props) => {
-  const { people, person, handleSelectPerson } = props
+  const { title, people, person, handleSelectPerson } = props
 
   return (
     <ul className={styles.users}>
       <li>
-        <h4 style={{ color: 'var(--darkGray)', marginBottom: 0 }}>
-          Feedback given
-        </h4>
+        <h4 style={{ color: 'var(--darkGray)', marginBottom: 0 }}>{title}</h4>
       </li>
       {people.map((user: any) => (
         <li
